@@ -68,3 +68,22 @@ class DataObject:
         self.train.to_csv(trainfname, index=False)
         self.dev.to_csv(devfname, index=False)
         self.test.to_csv(testfname, index=False)
+
+    def stats(self):
+        # filenames
+        print('Train file: ' + self.trainfile)
+        print('Dev file: ' + self.devfile)
+        print('Test file: ' + self.testfile)
+        
+        # sizes
+        print('Train size: ' + str(len(self.train)))
+        print('Dev size: ' + str(len(self.dev)))
+        print('Test size: ' + str(len(self.test)))
+        
+        # split member information
+        print('Train info:')
+        print(self.train.info())
+        print('Dev info:')
+        print(self.dev.info())
+        print('Test info:')
+        print(self.test.info())

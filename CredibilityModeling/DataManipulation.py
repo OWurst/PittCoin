@@ -9,7 +9,7 @@ import pandas as pd
 import DataObject as DO
 import random
 
-def load_data(filename):
+def load_csv(filename):
     try:
         data = pd.read_csv(filename)
         print('Data loaded from ' + filename)
@@ -34,7 +34,15 @@ def split_data(data, savefilename=None, train_size=0.8, dev_size=0.1, test_size=
 
     return data_obj
 
+def build_full_dataset():
+    pass
 
 if __name__ == '__main__':
     # set seed: sampling is random and I want reproducible results
     random.seed(0)
+
+    # load data
+    full_data = build_full_dataset()
+    do = split_data(full_data, savefilename='data_split.csv')
+
+    print(do.stats())
