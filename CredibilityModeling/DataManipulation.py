@@ -9,6 +9,8 @@ import pandas as pd
 import DataObject as DO
 import random
 
+import LoadFunctions as LF
+
 def load_csv(filename):
     try:
         data = pd.read_csv(filename)
@@ -35,7 +37,14 @@ def split_data(data, savefilename=None, train_size=0.8, dev_size=0.1, test_size=
     return data_obj
 
 def build_full_dataset():
-    pass
+    """
+        This function loads multiple datasets and concatenates them into one full dataset.
+    """
+
+    data1 = LF.load_kamal007()
+    data2 = LF.load_sumanthvrao()
+
+    full_data = pd.concat([data1, data2], ignore_index=True)
 
 if __name__ == '__main__':
     # set seed: sampling is random and I want reproducible results
