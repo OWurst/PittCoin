@@ -32,7 +32,7 @@ def split_data(data, savefilename=None, train_size=0.8, dev_size=0.1, test_size=
     data = data.drop(dev.index)
     test = data
     
-    data_obj = DO(savefilename=savefilename, train=train, dev=dev, test=test)
+    data_obj = DO.DataObject(savefilename=savefilename, train=train, dev=dev, test=test)
 
     return data_obj
 
@@ -46,12 +46,28 @@ def build_full_dataset():
 
     full_data = pd.concat([data1, data2], ignore_index=True)
 
+    # put quotes around the text and titles to avoid errors when saving
+    full_data['text'] = full_data['text'].apply(lambda x: '"' + x + '"')
+    full_data['title'] = full_data['title'].apply(lambda x: '"' + x + '"')
+
+    # convert all text and titles to lowercase strings
+    full_data['text'] = full_data['text'].apply(lambda x: x.lower())
+    full_data['title'] = full_data['title'].apply(lambda x: x.lower())
+
+    # convert all text and titles to utf-8
+    #full_data['text'] = full_data['text'].apply(lambda x: x.encode('utf-8'))
+    #full_data['title'] = full_data['title'].apply(lambda x: x.encode('utf-8'))
+
+    return full_data
+
 if __name__ == '__main__':
     # set seed: sampling is random and I want reproducible results
     random.seed(0)
 
     # load data
     full_data = build_full_dataset()
-    do = split_data(full_data, savefilename='data_split.csv')
+    do = split_data(full_data, savefilename='full_data')
+
+    do.save()
 
     print(do.stats())

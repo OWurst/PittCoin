@@ -61,13 +61,13 @@ class DataObject:
         return self.test
 
     def save(self):
-        trainfname = self.savefilename + '_train.csv'
-        devfname = self.savefilename + '_dev.csv'
-        testfname = self.savefilename + '_test.csv'
+        self.trainfile = self.savefilename + '_train.csv'
+        self.devfile = self.savefilename + '_dev.csv'
+        self.testfile = self.savefilename + '_test.csv'
 
-        self.train.to_csv(trainfname, index=False)
-        self.dev.to_csv(devfname, index=False)
-        self.test.to_csv(testfname, index=False)
+        self.train.to_csv(self.trainfile, index=False)
+        self.dev.to_csv(self.devfile, index=False)
+        self.test.to_csv(self.testfile, index=False)
 
     def stats(self):
         # filenames
