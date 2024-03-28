@@ -81,7 +81,7 @@ def load_sumanthvrao():
         with open(fake_dir + filename, 'r') as file:
             title = file.readline().strip()
             text = file.read().strip()
-            fake.append([title, text, 1])
+            fake.append([title, text, 0])
     fake = pd.DataFrame(fake, columns=['title', 'text', 'label'])
 
     # set up real dataframe
@@ -91,7 +91,7 @@ def load_sumanthvrao():
         with open(real_dir + filename, 'r') as file:
             title = file.readline().strip()
             text = file.read().strip()
-            real.append([title, text, 0])
+            real.append([title, text, 1])
     real = pd.DataFrame(real, columns=['title', 'text', 'label'])
 
     # concatenate fake and real dataframes
