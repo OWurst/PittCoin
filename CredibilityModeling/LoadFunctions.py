@@ -19,6 +19,23 @@ def load_csv(filename):
         print('Error loading data from ' + filename)
         quit()
 
+def clean_df(df):
+    df = df.dropna()
+
+    # put quotes around the text and titles to avoid errors when saving
+    df['text'] = df['text'].apply(lambda x: '"' + x + '"')
+    df['title'] = df['title'].apply(lambda x: '"' + x + '"')
+
+    # convert all text and titles to lowercase strings
+    df['text'] = df['text'].apply(lambda x: x.lower())
+    df['title'] = df['title'].apply(lambda x: x.lower())
+
+    # remove all newline characters
+    df['text'] = df['text'].apply(lambda x: x.replace('\n', ' '))
+    df['title'] = df['title'].apply(lambda x: x.replace('\n', ' '))
+
+    return df
+
 def csv_to_dict(filename):
     """
     Reads a csv file and returns a dictionary with the data.
@@ -62,8 +79,7 @@ def load_kamal007():
     # concatenate train and test dataframes
     train = pd.concat([train, test], ignore_index=True)
 
-    # drop rows with missing values
-    train = train.dropna()
+    train = clean_df(train)
 
     return train
 
@@ -97,11 +113,11 @@ def load_sumanthvrao():
     # concatenate fake and real dataframes
     full_data = pd.concat([fake, real], ignore_index=True)
 
-    # drop rows with missing values
-    full_data = full_data.dropna()
+    full_data = clean_df(full_data)
 
     return full_data
 
+# main method is just for testing
 if __name__ == '__main__':
     # load data
     data1 = load_kamal007()

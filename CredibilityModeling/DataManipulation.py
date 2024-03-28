@@ -54,10 +54,6 @@ def build_full_dataset():
     full_data['text'] = full_data['text'].apply(lambda x: x.lower())
     full_data['title'] = full_data['title'].apply(lambda x: x.lower())
 
-    # convert all text and titles to utf-8
-    #full_data['text'] = full_data['text'].apply(lambda x: x.encode('utf-8'))
-    #full_data['title'] = full_data['title'].apply(lambda x: x.encode('utf-8'))
-
     return full_data
 
 if __name__ == '__main__':
