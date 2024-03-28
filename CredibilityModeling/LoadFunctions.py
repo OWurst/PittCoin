@@ -6,7 +6,6 @@ used to load the data from the files and return the dataframes.
 """
 
 import pandas as pd
-import random
 import os
 import csv
 
