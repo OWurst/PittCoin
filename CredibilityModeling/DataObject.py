@@ -11,6 +11,10 @@ class DataObject:
     def __init__(self, savefilename=None, trainfile=None, devfile=None, testfile=None, train=None, dev=None, test=None):
         self.savefilename = savefilename
         
+        self.train = train
+        self.dev = dev
+        self.test = test
+
         self.trainfile = trainfile
         if self.trainfile is not None:
             self.load_train()
@@ -22,10 +26,6 @@ class DataObject:
         self.testfile = testfile
         if self.testfile is not None:
             self.load_test()
-
-        self.train = train
-        self.dev = dev
-        self.test = test
 
     def load_train(self):
         try:
@@ -71,19 +71,29 @@ class DataObject:
 
     def stats(self):
         # filenames
-        print('Train file: ' + self.trainfile)
-        print('Dev file: ' + self.devfile)
-        print('Test file: ' + self.testfile)
+        print('Train file: ' + str(self.trainfile))
+        print('Dev file: ' + str(self.devfile))
+        print('Test file: ' + str(self.testfile))
         
         # sizes
-        print('Train size: ' + str(len(self.train)))
-        print('Dev size: ' + str(len(self.dev)))
-        print('Test size: ' + str(len(self.test)))
+        if self.train is not None:
+            print('Train size: ' + str(len(self.train)))
+        
+        if self.dev is not None:
+            print('Dev size: ' + str(len(self.dev)))
+        
+        if self.test is not None:
+            print('Test size: ' + str(len(self.test)))
         
         # split member information
-        print('Train info:')
-        print(self.train.info())
-        print('Dev info:')
-        print(self.dev.info())
-        print('Test info:')
-        print(self.test.info())
+        if self.train is not None:
+            print('Train info:')
+            print(self.train.info())
+        
+        if self.dev is not None:
+            print('Dev info:')
+            print(self.dev.info())
+
+        if self.test is not None:
+            print('Test info:')
+            print(self.test.info())

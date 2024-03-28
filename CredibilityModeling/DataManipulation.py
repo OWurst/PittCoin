@@ -11,15 +11,6 @@ import random
 
 import LoadFunctions as LF
 
-def load_csv(filename):
-    try:
-        data = pd.read_csv(filename)
-        print('Data loaded from ' + filename)
-        return data
-    except:
-        print('Error loading data from ' + filename)
-        quit()
-
 def split_data(data, savefilename=None, train_size=0.8, dev_size=0.1, test_size=0.1):
     if train_size + dev_size + test_size != 1.0:
         print('Error: Train, dev, test sizes do not add up to 1.0')
@@ -55,6 +46,27 @@ def build_full_dataset():
     full_data['title'] = full_data['title'].apply(lambda x: x.lower())
 
     return full_data
+
+def load_test(basefilename):
+    """
+    Loads the test data from the saved file.
+    """
+
+    testfile = basefilename + '_test.csv'
+
+    do = DO.DataObject(testfile=testfile)
+    return do
+
+def load_train_dev(basefilename):
+    """
+    Loads the train and dev data from the saved files.
+    """
+
+    trainfile = basefilename + '_train.csv'
+    devfile = basefilename + '_dev.csv'
+
+    do = DO.DataObject(trainfile=trainfile, devfile=devfile)
+    return do
 
 if __name__ == '__main__':
     # set seed: sampling is random and I want reproducible results
