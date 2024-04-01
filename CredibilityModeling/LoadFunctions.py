@@ -4,10 +4,10 @@ Data comes from multiple sources, and putting all of this together requires buil
 multiple dataframes in different ways and concatenating them together. This file is
 used to load the data from the files and return the dataframes. 
 """
-
 import pandas as pd
 import os
 import csv
+from langdetect import detect
 
 def load_csv(filename):
     try:
@@ -35,6 +35,7 @@ def clean_df(df):
 
     return df
 
+
 def csv_to_dict(filename):
     """
     Reads a csv file and returns a dictionary with the data.
@@ -51,6 +52,40 @@ def flip_labels(df):
     1 means fake and 0 means real, we want 1 to mean trustworthy).
     """
     df['label'] = 1 - df['label']
+    return df
+
+def replace_apostrophes(text):
+    text_utf8 = text.replace('\u2018', "'").replace('\u2019', "'")
+    text_utf8 = text_utf8.replace('\u203a', '>')
+    text_utf8 = text_utf8.replace('\u2013', '-')
+
+    # convert to utf-8
+    text_utf8 = text_utf8.encode('utf-8').decode('utf-8')
+
+    return text_utf8
+
+def fix_utf8(df):
+    df['text'] = df['text'].apply(replace_apostrophes)
+    df['title'] = df['title'].apply(replace_apostrophes)
+    return df
+
+def isEnglish(string):
+    try:
+        if detect(string) == 'en':
+            return True
+        else:
+            return False
+    except:
+        return False
+
+def filter_english(df):
+    print('Filtering out non-english articles...')
+    print('Original size:', len(df))
+
+    df = df[df['text'].apply(isEnglish)]
+    df = df[df['title'].apply(isEnglish)]
+
+    print('New size:', len(df))
     return df
 
 def load_kamal007():
@@ -79,6 +114,9 @@ def load_kamal007():
     train = pd.concat([train, test], ignore_index=True)
 
     train = clean_df(train)
+
+    train = filter_english(train)
+    train = fix_utf8(train)
 
     return train
 
