@@ -26,8 +26,8 @@ def clean_df(df):
     df['title'] = df['title'].apply(lambda x: '"' + x + '"')
 
     # convert all text and titles to lowercase strings
-    df['text'] = df['text'].apply(lambda x: x.lower())
-    df['title'] = df['title'].apply(lambda x: x.lower())
+    # df['text'] = df['text'].apply(lambda x: x.lower())
+    # df['title'] = df['title'].apply(lambda x: x.lower())
 
     # remove all newline characters
     df['text'] = df['text'].apply(lambda x: x.replace('\n', ' '))

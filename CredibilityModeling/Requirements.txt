@@ -1,1 +1,10 @@
 pandas
+numpy
+langdetect
+accelerate
+torch
+transformers
+seqeval
+datasets
+evaluate
+scikit-learn
