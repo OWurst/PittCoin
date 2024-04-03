@@ -11,6 +11,14 @@ import random
 
 import LoadFunctions as LF
 
+def simplify_quotes(text):
+    """
+    Simplifies the quotes in the text to avoid errors when saving to csv.
+    """
+    text = text.replace('"', "'")
+    text = text.replace("'''", '"')
+    return text
+
 def split_data(data, savefilename=None, train_size=0.8, dev_size=0.1, test_size=0.1):
     if train_size + dev_size + test_size != 1.0:
         print('Error: Train, dev, test sizes do not add up to 1.0')
@@ -74,6 +82,13 @@ if __name__ == '__main__':
 
     # load data
     full_data = build_full_dataset()
+
+    full_data['text'] = full_data['text'].apply(simplify_quotes)
+    full_data['title'] = full_data['title'].apply(simplify_quotes)
+
+    # remove any rows with missing data
+    full_data = full_data.dropna()
+
     do = split_data(full_data, savefilename='full_data')
 
     do.save()

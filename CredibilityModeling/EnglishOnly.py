@@ -38,5 +38,3 @@ if __name__ == '__main__':
 
     # save english model to csv
     train.to_csv('Data/Kaggle-kamal007fakenewsprediction/trainenglish.csv', index=False)
-
-
