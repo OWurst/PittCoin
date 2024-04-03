@@ -101,12 +101,7 @@ def load_kamal007():
     train = load_csv('Data/Kaggle-kamal007fakenewsprediction/train.csv')
     train = train.drop(['id', 'author'], axis=1)
     train = flip_labels(train)
-
-    # set up test dataframe (load, drop unused columns, get labels from submit dictionary)
-    submit_dict = csv_to_dict('Data/Kaggle-kamal007fakenewsprediction/submit.csv')
-    test = load_csv('Data/Kaggle-kamal007fakenewsprediction/test.csv')
     
-    test['label'] = test['id'].map(submit_dict)
     test = test.drop(['id', 'author'], axis=1)
     test = flip_labels(test)
 

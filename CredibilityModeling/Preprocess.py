@@ -38,8 +38,8 @@ def build_full_dataset():
     full_data = pd.concat([data1, data2], ignore_index=True)
 
     # put quotes around the text and titles to avoid errors when saving
-    full_data['text'] = full_data['text'].apply(lambda x: '"' + x + '"')
-    full_data['title'] = full_data['title'].apply(lambda x: '"' + x + '"')
+    full_data['text'] = full_data['text'].apply(lambda x: '' + x + '')
+    full_data['title'] = full_data['title'].apply(lambda x: '' + x + '')
 
     # convert all text and titles to lowercase strings
     full_data['text'] = full_data['text'].apply(lambda x: x.lower())
