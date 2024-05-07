@@ -1,5 +1,5 @@
 # PittCoin
-Pitt NLP Group Project
+A group project for Pitt CS2731, intro to natural language processing. The purpose of this research project was to see if we could predict the credibility of financial news articles, and if so, use the credibility of a news article to better predict S&P 500 movement the day following the article's publishing than when just using the article itself. Our results can be found in PittCoin_Final_Report.pdf
 
 Day 1: dataset links:
 * https://ieee-dataport.org/open-access/stock-market-tweets-data
