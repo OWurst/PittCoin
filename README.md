@@ -4,7 +4,8 @@ Pitt NLP Group Project
 Day 1: dataset links:
 * https://ieee-dataport.org/open-access/stock-market-tweets-data
 * https://www.kaggle.com/datasets/parsabg/stocknewseventssentiment-snes-10?select=data.csv
-* 
+
+
 Steps for initiating new development - 
 1. Begin by creating a new branch, either from the 'dev' branch or the desired base branch. It is advisable to choose 'dev' as the base branch for the most up-to-date codebase.
 
