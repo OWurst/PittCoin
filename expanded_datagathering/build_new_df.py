@@ -14,6 +14,7 @@ def get_meruvulikith_data():
     return new_data
 
 if __name__ == '__main__':
+    # keep this and comment out old datasets when adding new datasets
     try:
         curr_dataset = pd.read_csv('new_train_data.csv')
     except:
@@ -23,7 +24,18 @@ if __name__ == '__main__':
     new_datasets = [meruvulikith]
 
     for dataset in new_datasets:
-        new_dataset = pd.concat([curr_dataset, dataset], ignore_index=True)
+        curr_dataset = pd.concat([curr_dataset, dataset], ignore_index=True)
 
-    new_dataset.to_csv('new_train_data.csv')
+    try:
+        curr_dataset = curr_dataset.drop(columns=["Unnamed: 0"], inplace=True)
+        # drop null column
+        curr_dataset = curr_dataset.dropna()
+
+        print("Dropped Unnamed: 0")
+    except:
+        pass
+
+    print(curr_dataset.head())
+
+    curr_dataset.to_csv('new_train_data.csv')
     
