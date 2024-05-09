@@ -25,15 +25,7 @@ if __name__ == '__main__':
 
     for dataset in new_datasets:
         curr_dataset = pd.concat([curr_dataset, dataset], ignore_index=True)
-
-    try:
-        curr_dataset = curr_dataset.drop(columns=["Unnamed: 0"], inplace=True)
-        # drop null column
-        curr_dataset = curr_dataset.dropna()
-
-        print("Dropped Unnamed: 0")
-    except:
-        pass
+        
 
     print(curr_dataset.head())
 
