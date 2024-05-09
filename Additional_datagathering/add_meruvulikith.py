@@ -2,13 +2,16 @@ import pandas as pd
 import cleaning_functions as cf
 
 def get_meruvulikith_data():
-    data = pd.read_csv('./meruvulikith_newdata/data-1.csv')
+    data = pd.read_csv('./newdata/meruvulikith_newdata/data-1.csv')
     return data
 
 if __name__ == '__main__':
     new_data = get_meruvulikith_data()
 
-    curr_dataset = pd.read_csv('new_train_data.csv')
+    try:
+        curr_dataset = pd.read_csv('new_train_data.csv')
+    except:
+        curr_dataset = None
     
     new_data["text"] = new_data["scraped_content"]
     new_data["title"] = new_data["Title"]
