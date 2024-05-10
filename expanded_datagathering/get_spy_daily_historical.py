@@ -12,7 +12,7 @@ def get_spy_daily_historical(start_date, end_date):
 
 if __name__ == '__main__':
     start_date = datetime.datetime(2010, 1, 1)
-    end_date = datetime.datetime(2023, 1, 1)
+    end_date = datetime.datetime(2023, 12, 31)
     data = get_spy_daily_historical(start_date, end_date)
     print(data.head())
     print(data.tail())
