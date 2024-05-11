@@ -59,3 +59,4 @@ if __name__ == '__main__':
     curr_dataset = curr_dataset.dropna()
 
     curr_dataset.to_csv('new_train_data.csv')
+    print("\nSaved to 'new_train_data.csv'")
