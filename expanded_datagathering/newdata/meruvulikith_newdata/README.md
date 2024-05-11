@@ -1,1 +1,2 @@
 ## Dataset from https://www.kaggle.com/datasets/meruvulikith/financial-news
+This dataset is zipped up here and will need to be unzipped and placed in this current directory for the build_df file to work.
