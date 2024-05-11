@@ -79,25 +79,25 @@ def clean_unicode(text):
 def clean(df):
     df = df.dropna()
 
-    df['text'] = df['text'].apply(lambda x: '"' + x + '"')
-    df['title'] = df['title'].apply(lambda x: '"' + x + '"')
+    df.loc[:, 'text'] = df['text'].apply(lambda x: '"' + x + '"')
+    df.loc[:, 'title'] = df['title'].apply(lambda x: '"' + x + '"')
 
     # remove all newline characters
-    df['text'] = df['text'].apply(lambda x: x.replace('\n', ' '))
-    df['title'] = df['title'].apply(lambda x: x.replace('\n', ' '))
+    df.loc[:, 'text'] = df['text'].apply(lambda x: x.replace('\n', ' '))
+    df.loc[:, 'title'] = df['title'].apply(lambda x: x.replace('\n', ' '))
 
     # clean unicode mess
-    df['text'] = df['text'].apply(clean_unicode)
-    df['title'] = df['title'].apply(clean_unicode)
+    df.loc[:, 'text'] = df['text'].apply(clean_unicode)
+    df.loc[:, 'title'] = df['title'].apply(clean_unicode)
 
     # simplify quotes
-    df['text'] = df['text'].apply(simplify_quotes)
-    df['title'] = df['title'].apply(simplify_quotes)
+    df.loc[:, 'text'] = df['text'].apply(simplify_quotes)
+    df.loc[:, 'title'] = df['title'].apply(simplify_quotes)
 
     # make lowercase
-    df['text'] = df['text'].apply(lambda x: x.lower())
-    df['title'] = df['title'].apply(lambda x: x.lower())
+    df.loc[:, 'text'] = df['text'].apply(lambda x: x.lower())
+    df.loc[:, 'title'] = df['title'].apply(lambda x: x.lower())
 
-    df['date'] = pd.to_datetime(df['date'])
+    df.loc[:, 'date']= pd.to_datetime(df['date'])
 
     return df
