@@ -10,15 +10,28 @@ def get_meruvulikith_data():
     new_data = new_data[["text", "title", "date"]]
 
     new_data = cf.clean(new_data)
+    print("meruvulikith data preprocessed")
     return new_data
 
 def get_old_data():
-    old_data = pd.read_csv('./newdata/original_data/news_and_stocks.csv')
+    old_data1 = pd.read_csv('./newdata/original_data/news_and_stocks_with_domain.csv')
 
-    old_data['date'] = old_data['Date']
-    old_data = old_data[['text', 'title', 'date']]
+    old_data1['date'] = old_data1['published']
+    old_data1 = old_data1[['text', 'title', 'date']]
 
-    old_data = cf.clean(old_data)
+    old_data1 = cf.clean(old_data1)
+    print("Large Old Dataset Preprocessed")
+
+    old_data2 = pd.read_csv('./newdata/original_data/news_and_stocks_small.csv')
+
+    old_data2['date'] = old_data2['Date']
+    old_data2 = old_data2[['text', 'title', 'date']]
+
+    old_data2 = cf.clean(old_data2)
+    print("Small Old Dataset Preprocessed")
+
+    old_data = pd.concat([old_data1, old_data2], ignore_index=True)
+
     return old_data
 
 if __name__ == '__main__':
@@ -26,15 +39,23 @@ if __name__ == '__main__':
     try:
         curr_dataset = pd.read_csv('new_train_data.csv')
     except:
-        curr_dataset = pd.DataFrame(columns=["date", "title", "text"])
+        pass
     
     meruvulikith = get_meruvulikith_data()
     original_data = get_old_data()
-    new_datasets = [meruvulikith, original_data]
+    new_datasets = [
+        meruvulikith, 
+        original_data
+        ]
 
-    for dataset in new_datasets:
-        curr_dataset = pd.concat([curr_dataset, dataset], ignore_index=True)
-        
-    print(curr_dataset.head())
+    try:
+        new_datasets.append(curr_dataset)
+        curr_dataset = pd.concat(new_datasets, ignore_index=True)
+    except:
+        curr_dataset = pd.concat(new_datasets, ignore_index=True)
+    
+    # remove duplicates in text
+    curr_dataset = curr_dataset.drop_duplicates(subset='text')
+    curr_dataset = curr_dataset.dropna()
 
     curr_dataset.to_csv('new_train_data.csv')

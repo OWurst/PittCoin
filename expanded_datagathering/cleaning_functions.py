@@ -29,7 +29,6 @@ def clean_unicode(text):
 
     # replace weird 00e2 character with space
     text_utf8 = text_utf8.replace('\u00e2', ' ')
-
     text_utf8 = text_utf8.replace('\u2013', '-')
 
     # remove oe character
@@ -98,6 +97,6 @@ def clean(df):
     df.loc[:, 'text'] = df['text'].apply(lambda x: x.lower())
     df.loc[:, 'title'] = df['title'].apply(lambda x: x.lower())
 
-    df.loc[:, 'date']= pd.to_datetime(df['date'])
+    df.loc[:, 'date']= pd.to_datetime(df['date'], format='mixed')
 
     return df
