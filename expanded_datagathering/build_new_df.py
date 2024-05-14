@@ -34,6 +34,16 @@ def get_old_data():
 
     return old_data
 
+def get_amulyas_data():
+    new_data = pd.read_csv('./newdata/amulyas_newdata/amulyas.csv')
+    
+    new_data["date"] = new_data["published"].apply(lambda x: x.split("T")[0])
+    new_data = new_data[["text", "title", "date"]]
+
+    new_data = cf.clean(new_data)
+    print("amulyas data preprocessed")
+    return new_data
+
 if __name__ == '__main__':
     # keep this and comment out old datasets when adding new datasets
     try:
@@ -43,9 +53,11 @@ if __name__ == '__main__':
     
     meruvulikith = get_meruvulikith_data()
     original_data = get_old_data()
+    amulyas = get_amulyas_data()
     new_datasets = [
         meruvulikith, 
-        original_data
+        original_data,
+        amulyas
         ]
 
     try:
