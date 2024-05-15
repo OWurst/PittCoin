@@ -44,6 +44,16 @@ def get_amulyas_data():
     print("amulyas data preprocessed")
     return new_data
 
+def get_philippe_bloomberg_data(year):
+    df = pd.read_csv(f'./newdata/philippe_newdata/bloomberg{year}.csv')
+
+    df["text"] = df["content"]
+    df = df[["text", "title", "date"]]
+
+    df = cf.clean(df)
+    print(f"bloomberg{year} data preprocessed")
+    return df
+
 if __name__ == '__main__':
     # keep this and comment out old datasets when adding new datasets
     try:
@@ -54,10 +64,18 @@ if __name__ == '__main__':
     meruvulikith = get_meruvulikith_data()
     original_data = get_old_data()
     amulyas = get_amulyas_data()
+    bloomberg2010 = get_philippe_bloomberg_data('2010')
+    bloomberg2011 = get_philippe_bloomberg_data('2011')
+    bloomberg2012 = get_philippe_bloomberg_data('2012')
+    bloomberg2013 = get_philippe_bloomberg_data('2013')
     new_datasets = [
         meruvulikith, 
         original_data,
-        amulyas
+        amulyas,
+        bloomberg2010,
+        bloomberg2011,
+        bloomberg2012,
+        bloomberg2013
         ]
 
     try:
