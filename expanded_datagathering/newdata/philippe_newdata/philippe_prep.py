@@ -69,10 +69,26 @@ def make_year_file(year):
     year_df.to_csv(f'./bloomberg{year}.csv', index=False)
     print(year_df.head())
 
+def fix_file(year):
+    df = pd.read_csv(f'./bloomberg{year}.csv')
+
+    df.dropna()
+    
+    # remove all rows where date cannot be converted to datetime
+    df['date'] = pd.to_datetime(df['date'], errors='coerce')
+    df = df.dropna(subset=['date'])
+
+    df.to_csv(f'./bloomberg{year}.csv', index=False)
+
 if __name__ == '__main__':
     limit_years()
 
-    make_year_file('2010')
-    make_year_file('2011')
-    make_year_file('2012')
-    make_year_file('2013')
+    # make_year_file('2010')
+    # make_year_file('2011')
+    # make_year_file('2012')
+    # make_year_file('2013')
+
+    fix_file('2010')
+    fix_file('2011')
+    fix_file('2012')
+    fix_file('2013')
