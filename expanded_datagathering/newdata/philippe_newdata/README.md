@@ -1,4 +1,5 @@
 ## Philippe data from other paper
+
 @misc{BloombergReutersDataset2015,
   author = {Philippe Remy, Xiao Ding},
   title = {Financial News Dataset from Bloomberg and Reuters},
